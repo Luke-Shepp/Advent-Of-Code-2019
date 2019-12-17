@@ -10,3 +10,6 @@ trim_trailing_whitespace = true
 
 [*.csv]
 insert_final_newline = false
+
+[*.txt]
+insert_final_newline = false
