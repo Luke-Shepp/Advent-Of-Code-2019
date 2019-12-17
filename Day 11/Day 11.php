@@ -1,4 +1,6 @@
 <?php
+// Luke Sheppard
+// Advent of Code 2019 - Day 11 - Part 1 & 2 - https://adventofcode.com/2019/day/11
 
 require_once __DIR__ . '/Computer.php';
 
