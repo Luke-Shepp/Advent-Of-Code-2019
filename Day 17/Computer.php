@@ -37,6 +37,9 @@ class Computer
     private $relativeBase = 0;
     private $pointer = 0;
 
+    /** @var bool */
+    private $interactive = false;
+
     /**
      * Initialise computer.
      *
@@ -56,6 +59,16 @@ class Computer
     {
         $input = file_get_contents(__DIR__ . '/' . $programFile);
         $this->opcodes = explode(',', $input);
+    }
+
+    /**
+     * Toggle interactive input
+     *
+     * @param boolean $interactive
+     */
+    public function setInteractive(bool $interactive = true)
+    {
+        $this->interactive = $interactive;
     }
 
     /**
@@ -229,7 +242,11 @@ class Computer
 
             case Opcode::INPUT:
                 if (empty($this->inputQueue)) {
-                    throw new ExpectsInputException("Expecting input, but input queue is empty.");
+                    if ($this->interactive) {
+                        $this->addInput(readline('Input: '));
+                    } else {
+                        throw new ExpectsInputException("Expecting input, but input queue is empty.");
+                    }
                 }
                 $input = array_shift($this->inputQueue);
                 $targetAddress = $this->parameterAddress($instruction, 1);
